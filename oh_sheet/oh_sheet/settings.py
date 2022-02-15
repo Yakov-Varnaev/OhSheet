@@ -1,6 +1,7 @@
 import os
 from dotenv import load_dotenv
 from pathlib import Path
+from split_settings.tools import include
 
 load_dotenv()
 
@@ -21,7 +22,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
+    'rest_framework.authtoken',
     'drf_yasg',
+    'djoser',
 
     'users.apps.UsersConfig',
 ]
