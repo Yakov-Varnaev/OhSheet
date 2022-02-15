@@ -13,6 +13,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+include('components/drf.py')
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
