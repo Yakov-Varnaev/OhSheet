@@ -10,4 +10,4 @@ class User(AbstractUser):
     birth_date = models.DateField('date of birth', null=True)
     system = models.CharField('favorite system', blank=True, null=True, max_length=250)
     language = models.CharField('language', blank=True, null=True, max_length=250)
-    bio = models.TextField('users bio', max_length=250)
+    bio = models.TextField('users bio', max_length=250, blank=True, null=True)

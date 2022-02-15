@@ -11,6 +11,7 @@ urlpatterns = [
 if settings.DEBUG:
     urlpatterns += [
         path('api/', include(docs_urls)),
+        path('api/', include('users.urls')),
         path('auth/', include('djoser.urls')),
         path('auth/', include('djoser.urls.jwt')),
     ]
