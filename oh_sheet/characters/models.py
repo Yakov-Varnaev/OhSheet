@@ -88,4 +88,3 @@ class PlayableCharacter(AbstractCharacter):
         default=0
     )
     initiative_bonus = models.IntegerField('initiative bonus', default=2)
-

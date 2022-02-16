@@ -9,3 +9,10 @@ class UserProfileSerialier(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('first_name', 'last_name', 'bio', 'language', 'system')
+
+
+class UserShortSerializer(UserProfileSerialier):
+
+    class Meta:
+        model = User
+        fields = ('id', 'first_name', 'last_name')

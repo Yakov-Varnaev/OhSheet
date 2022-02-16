@@ -1,7 +1,9 @@
 from rest_framework import viewsets
 
-from ...models import CharacterClass, Race, PlayableCharacter
-from .serializers import CharacterClassSerializer, PlayableCharacterSerialzer, RaceSerializer
+from characters.models import CharacterClass, PlayableCharacter, Race
+
+from .serializers import (CharacterClassSerializer, PlayableCharacterSerialzer,
+                          RaceSerializer)
 
 
 class RaceViewSet(viewsets.ModelViewSet):
@@ -15,5 +17,9 @@ class CharacterClassViewSet(viewsets.ModelViewSet):
 
 
 class PlayableCharacterViewSet(viewsets.ModelViewSet):
-    queryset = PlayableCharacter.objects.select_related('race', 'clazz', 'owner')
-    serizlier_class = PlayableCharacterSerialzer
+    queryset = (
+        PlayableCharacter
+        .objects
+        .select_related('race', 'clazz', 'owner')
+    )
+    serializer_class = PlayableCharacterSerialzer
