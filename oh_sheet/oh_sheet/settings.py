@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'drf_yasg',
     'djoser',
 
+    'characters.apps.CharactersConfig',
     'users.apps.UsersConfig',
 ]
 
