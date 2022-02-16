@@ -5,10 +5,11 @@ User = get_user_model()
 
 
 class UserProfileSerialier(serializers.ModelSerializer):
+    character_count = serializers.IntegerField()
 
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'bio', 'language', 'system')
+        fields = ('first_name', 'last_name', 'bio', 'language', 'system', 'character_count')
 
 
 class UserShortSerializer(UserProfileSerialier):

@@ -12,4 +12,13 @@ class UserViewSet(mixins.ListModelMixin,
     serializer_class = UserProfileSerialier
 
     def get_queryset(self):
+        if self.action == 'list':
+            res = User.objects.raw(
+                '''
+                select users_user.id, first_name, last_name, bio, language, system, SUM(characters_playablecharacter.id) as character_count
+                from users_user
+                join characters_playablecharacter on users_user.id = characters_playablecharacter.owner_id;
+                '''
+            )
+            return res
         return User.objects.all()

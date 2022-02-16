@@ -9,8 +9,8 @@ urlpatterns = [
     path('api/api-auth/', include('rest_framework.urls')),
     path('api/', include('users.urls')),
     path('api/', include('characters.urls')),
-    path('auth/', include('djoser.urls')),
-    path('auth/', include('djoser.urls.jwt')),
+    path('api/v1/auth/', include('djoser.urls')),
+    path('api/v1/auth/', include('djoser.urls.jwt')),
 ]
 
 if settings.DEBUG:
