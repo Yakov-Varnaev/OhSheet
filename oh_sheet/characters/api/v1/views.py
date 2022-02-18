@@ -1,5 +1,5 @@
 from rest_framework import viewsets
-
+from django.db.models import Count
 from characters.models import CharacterClass, PlayableCharacter, Race
 
 from .serializers import (CharacterClassSerializer, PlayableCharacterSerialzer,
@@ -23,3 +23,4 @@ class PlayableCharacterViewSet(viewsets.ModelViewSet):
         .select_related('race', 'clazz', 'owner')
     )
     serializer_class = PlayableCharacterSerialzer
+

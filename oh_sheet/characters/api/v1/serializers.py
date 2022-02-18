@@ -1,3 +1,4 @@
+from django.forms import IntegerField
 from rest_framework import serializers
 
 from characters.models import CharacterClass, PlayableCharacter, Race
