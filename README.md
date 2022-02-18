@@ -13,5 +13,5 @@ Pull request to master for now.
 
 - Imports must be sorted with isort
 - Code should pass flake8 tests
-- You should use single quites
+- You should use single quotes
 - Every endpoint shoud be covered with tests
