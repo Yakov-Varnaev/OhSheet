@@ -1,9 +1,13 @@
 # OhSheet
 
+## How to work with branches
+Pull request to master for now.
+
 ## Stack
-Backend: Django + DRF
-Database: Postgres
-Frontend: React + Material
+
+- Backend: Django + DRF
+- Database: Postgres
+- Frontend: React + Material
 
 ## Project Rules
 
