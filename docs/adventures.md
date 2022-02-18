@@ -31,9 +31,10 @@ default ordering by chapter №
 ### Serializers
 
 - Adventure
+
 List:
 ```
-{
+[{
     "id": 1,
     "name": "String",
     "description": "string",
@@ -44,7 +45,7 @@ List:
     },
     "episodes_count": 1,
     "chapters_count": 1
-}
+}]
 ```
 
 Detail
@@ -59,4 +60,20 @@ Detail
     },
     "episodes": [{"id": 1, "name": "string"}],
     "chapters": [{"id": 1, "name": "string"}]
+```
+
+- Episodes/Chapters
+
+List
+```
+[{
+    "id": 1,
+    "number": 1,
+    "name": "string"
+}]
+```
+
+Detail
+```
+all fields
 ```
