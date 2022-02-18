@@ -23,4 +23,3 @@ class PlayableCharacterViewSet(viewsets.ModelViewSet):
         .select_related('race', 'clazz', 'owner')
     )
     serializer_class = PlayableCharacterSerialzer
-
