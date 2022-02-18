@@ -17,26 +17,25 @@ So, this part should be responsible for this.
   4. writer (fk to user)
 </details>
 
-- Adventure
-    - id
-    - name max len 255
-    - description max len 500
-    - writer (fk to user)
+<details>
+  <summary>Episode</summary>
+  1. id
+  2. adventure fk to Adventure
+  3. episode №
+  4. name
+  5. description max len 500
+  ordering by episode №
+</details>
 
-- Episode
-    - id
-    - adventure fk to Adventure
-    - episode №
-    - name
-    - description max len 500
-default ordering by episode №
-
-- Chapter
-    - id 
-    - chapter №
-    - Episode fk to Adventure
-    - text
-default ordering by chapter №
+<details>
+  <summary>Chapter</summary>
+  1. id
+  2. episode fk to Adventure
+  3. chapter №
+  4. name
+  5. text
+  ordering by chapter №
+</details>
 
 ### Serializers
 
