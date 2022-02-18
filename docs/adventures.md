@@ -5,6 +5,9 @@
 To play D&D you should have some story or an adventure, which you will follow along. 
 So, this part should be responsible for this.
 
+## Permissions
+Only authenticated users are able to perform CRUD.
+
 ### Models
 <details>
   <summary>Adventure model</summary>
