@@ -5,28 +5,48 @@
 To play D&D you should have some story or an adventure, which you will follow along. 
 So, this part should be responsible for this.
 
+## Permissions
+Only authenticated users are able to perform CRUD.
+
 ### Models
+<details>
+  <summary>Adventure model</summary>
 
-- Adventure
-    - id
-    - name max len 255
-    - description max len 500
-    - writer (fk to user)
+  ## Advnture
+  
+  1. id
+  2. name max len 255
+  3. description max len 500
+  4. writer (fk to user)
+</details>
 
-- Episode
-    - id
-    - adventure fk to Adventure
-    - episode №
-    - name
-    - description max len 500
-default ordering by episode №
+<details>
+  <summary>Episode</summary>
+  
+  ## Episode
+  
+  1. id
+  2. adventure fk to Adventure
+  3. episode №
+  4. name
+  5. description max len 500
 
-- Chapter
-    - id 
-    - chapter №
-    - Episode fk to Adventure
-    - text
-default ordering by chapter №
+  ordering by episode №
+</details>
+
+<details>
+  <summary>Chapter</summary>
+  
+  ## Chapter
+  
+  1. id
+  2. episode fk to Adventure
+  3. chapter №
+  4. name
+  5. text
+  
+  ordering by chapter №
+</details>
 
 ### Serializers
 
@@ -34,7 +54,7 @@ default ordering by chapter №
 
 List:
 ```
-{
+[{
     "id": 1,
     "name": "String",
     "description": "string",
@@ -45,7 +65,7 @@ List:
     },
     "episodes_count": 1,
     "chapters_count": 1
-}
+}]
 ```
 
 Detail
@@ -60,4 +80,20 @@ Detail
     },
     "episodes": [{"id": 1, "name": "string"}],
     "chapters": [{"id": 1, "name": "string"}]
+```
+
+- Episodes/Chapters
+
+List
+```
+[{
+    "id": 1,
+    "number": 1,
+    "name": "string"
+}]
+```
+
+Detail
+```
+all fields
 ```
