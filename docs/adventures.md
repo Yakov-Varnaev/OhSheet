@@ -27,6 +27,7 @@ Only authenticated users are able to perform CRUD.
   3. episode №
   4. name
   5. description max len 500
+
   ordering by episode №
 </details>
 
