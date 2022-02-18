@@ -1,5 +1,5 @@
-from rest_framework import viewsets
 from characters.models import CharacterClass, PlayableCharacter, Race
+from rest_framework import viewsets
 
 from .serializers import (CharacterClassSerializer, PlayableCharacterSerialzer,
                           RaceSerializer)

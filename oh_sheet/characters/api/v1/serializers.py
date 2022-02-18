@@ -1,6 +1,5 @@
-from rest_framework import serializers
-
 from characters.models import CharacterClass, PlayableCharacter, Race
+from rest_framework import serializers
 from users.api.v1.serializers import UserShortSerializer
 
 
