@@ -6,7 +6,15 @@ To play D&D you should have some story or an adventure, which you will follow al
 So, this part should be responsible for this.
 
 ### Models
-
+<details>
+  <summary>Click to expand!</summary>
+  
+  ## Advnture
+    - id
+    - name max len 255
+    - description max len 500
+    - writer (fk to user)
+</details>
 - Adventure
     - id
     - name max len 255
