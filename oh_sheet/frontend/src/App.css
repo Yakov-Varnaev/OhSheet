@@ -1,9 +1,17 @@
-.App {
-  text-align: center;
-}
-
 .logo-text {
   font-family: Bokor;
   color: #D7CFCD;
   font-size: 3vh;
+}
+
+main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(-10%);
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
 }

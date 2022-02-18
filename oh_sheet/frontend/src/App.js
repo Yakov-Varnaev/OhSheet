@@ -1,11 +1,14 @@
 import "./App.css";
-import Header from "./components/Layout/Header";
+import React from "react";
+import { Routes, BrowserRouter, Route } from "react-router-dom";
+import { Layout } from "./components/Layout/Layout";
+import { Login } from "./components/Auth/Login";
 
 function App() {
   return (
-    <div className="App">
-      <Header />
-    </div>
+    <Layout>
+      <Login />
+    </Layout>
   );
 }
 
