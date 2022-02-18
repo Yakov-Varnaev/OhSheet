@@ -7,13 +7,16 @@ So, this part should be responsible for this.
 
 ### Models
 <details>
-  <summary>Click to expand!</summary>
+  <summary>Adventure model</summary>
+
   ## Advnture
-    1. id
-    2. name max len 255
-    3. description max len 500
-    4. writer (fk to user)
+  
+  1. id
+  2. name max len 255
+  3. description max len 500
+  4. writer (fk to user)
 </details>
+
 - Adventure
     - id
     - name max len 255
