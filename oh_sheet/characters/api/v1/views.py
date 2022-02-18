@@ -1,5 +1,4 @@
 from rest_framework import viewsets
-from django.db.models import Count
 from characters.models import CharacterClass, PlayableCharacter, Race
 
 from .serializers import (CharacterClassSerializer, PlayableCharacterSerialzer,
