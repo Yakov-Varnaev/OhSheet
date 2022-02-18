@@ -2,6 +2,8 @@
   text-align: center;
 }
 
-.header {
-  background-color: #383A3D;
+.logo-text {
+  font-family: Bokor;
+  color: #D7CFCD;
+  font-size: 3vh;
 }
