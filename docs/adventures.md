@@ -31,6 +31,7 @@ default ordering by chapter №
 ### Serializers
 
 - Adventure
+
 List:
 ```
 {

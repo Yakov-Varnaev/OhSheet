@@ -9,6 +9,7 @@ class Race(models.Model):
     class Meta:
         verbose_name = 'character race'
         verbose_name_plural = 'character races'
+        db_table = 'character_race'
 
     name = models.CharField('race name', max_length=255)
 
@@ -21,6 +22,7 @@ class CharacterClass(models.Model):
     class Meta:
         verbose_name = 'character class'
         verbose_name_plural = 'character classes'
+        db_table = 'character_class'
 
     name = models.CharField('class name', max_length=255)
 
@@ -75,6 +77,7 @@ class PlayableCharacter(AbstractCharacter):
     class Meta:
         verbose_name = 'playable character'
         verbose_name_plural = 'playable characters'
+        db_table = 'playable_character'
 
     owner = models.ForeignKey(
         User,

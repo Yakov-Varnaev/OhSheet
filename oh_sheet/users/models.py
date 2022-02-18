@@ -6,6 +6,7 @@ class User(AbstractUser):
     class Meta:
         verbose_name = 'User'
         verbose_name_plural = 'Users'
+        db_table = 'users'
 
     bio = models.TextField('users bio', max_length=250, blank=True, null=True)
     birth_date = models.DateField('date of birth', null=True)
