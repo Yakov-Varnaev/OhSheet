@@ -22,6 +22,9 @@ Only authenticated users are able to perform CRUD.
 
 <details>
   <summary>Episode</summary>
+  
+  ## Episode
+  
   1. id
   2. adventure fk to Adventure
   3. episode №
@@ -33,6 +36,9 @@ Only authenticated users are able to perform CRUD.
 
 <details>
   <summary>Chapter</summary>
+  
+  ## Chapter
+  
   1. id
   2. episode fk to Adventure
   3. chapter №
