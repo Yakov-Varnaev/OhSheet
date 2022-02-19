@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router";
 import { connect } from "react-redux";
 import { Container, Form, Button } from "react-bootstrap";
 import { performLogin } from "../../redux/actions";
@@ -6,11 +7,15 @@ import "./Auth.css";
 import "./Login.css";
 
 const Login = (props) => {
+  const navigate = useNavigate();
+  if (props.isAuthenticated) {
+    navigate("/");
+  }
+
   const [creds, setCreds] = useState({
     username: "",
     password: "",
   });
-  console.log(props);
 
   const handleChange = (event) => {
     setCreds((prevState) => ({
@@ -21,7 +26,7 @@ const Login = (props) => {
 
   function submitHandler(event) {
     event.preventDefault();
-    console.log(creds);
+    props.performLogin(creds);
   }
 
   return (
@@ -59,7 +64,7 @@ const Login = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    isAutheticated: state.auth.isAuthenticated,
+    isAuthenticated: state.auth.isAuthenticated,
   };
 };
 
