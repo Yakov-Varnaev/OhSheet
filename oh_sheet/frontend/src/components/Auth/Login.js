@@ -1,8 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { TextField, Button, Box, Container, Typography } from "@mui/material";
-import { maxWidth } from "@mui/system";
 
 export const Login = (props) => {
+  const [creds, setCreds] = useState({
+    username: "",
+    password: "",
+  });
+
+  const handleChange = (event) => {
+    setCreds((prevState) => ({
+      ...prevState,
+      [event.target.name]: event.target.value,
+    }));
+  };
+
   const styles = {
     mt: 2,
   };
@@ -32,12 +43,16 @@ export const Login = (props) => {
           <TextField
             sx={styles}
             name="username"
+            value={creds.username}
+            onChange={handleChange}
             label="Username"
             variant="outlined"
           />
           <TextField
             sx={styles}
             name="password"
+            value={creds.password}
+            onChange={handleChange}
             type="password"
             label="Password"
             variant="outlined"
