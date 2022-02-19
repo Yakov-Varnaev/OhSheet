@@ -1,0 +1,19 @@
+.bottom-menu {
+    display: none;
+}
+
+@media screen and (max-width: 700px) {
+    .bottom-menu-container {
+        position: relative;
+    }
+    .bottom-menu {
+        display: flex;
+    }
+    .bottom-menu-links {
+        width: 100%;
+    }
+
+    body {
+        margin-bottom: 70px;
+    }
+}
