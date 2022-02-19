@@ -1,13 +1,16 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
+import { Container, Form, Button } from "react-bootstrap";
+import { performLogin } from "../../redux/actions";
 import "./Auth.css";
 import "./Login.css";
-import { Container, Form, Button } from "react-bootstrap";
 
-const Login = () => {
+const Login = (props) => {
   const [creds, setCreds] = useState({
     username: "",
     password: "",
   });
+  console.log(props);
 
   const handleChange = (event) => {
     setCreds((prevState) => ({
@@ -54,4 +57,14 @@ const Login = () => {
   );
 };
 
-export default Login;
+const mapStateToProps = (state) => {
+  return {
+    isAutheticated: state.auth.isAuthenticated,
+  };
+};
+
+const mapDispatchToProps = {
+  performLogin,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
