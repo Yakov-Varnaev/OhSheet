@@ -12,7 +12,7 @@ Only authenticated users are able to perform CRUD.
 <details>
   <summary>Adventure model</summary>
 
-  ## Advnture
+  ## Adventure
   
   1. id
   2. name max len 255
@@ -26,10 +26,11 @@ Only authenticated users are able to perform CRUD.
   ## Episode
   
   1. id
-  2. adventure fk to Adventure
+  2. adventure (fk to Adventure)
   3. episode №
   4. name
   5. description max len 500
+  6. writer (fk to user)
 
   ordering by episode №
 </details>
@@ -40,10 +41,11 @@ Only authenticated users are able to perform CRUD.
   ## Chapter
   
   1. id
-  2. episode fk to Adventure
+  2. episode (fk to episode)
   3. chapter №
   4. name
   5. text
+  6. writer (fk to user)
   
   ordering by chapter №
 </details>
