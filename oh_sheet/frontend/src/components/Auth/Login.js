@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import { connect } from "react-redux";
 import { Container, Form, Button } from "react-bootstrap";
-import { performLogin } from "../../redux/actions";
+import { performLogin } from "../../redux/authActions";
+import { showLoginHeader } from "../../redux/Header/headerActions";
 import "./Auth.css";
 import "./Login.css";
 
@@ -11,6 +12,7 @@ const Login = (props) => {
   if (props.isAuthenticated) {
     navigate("/");
   }
+  props.showLoginHeader();
 
   const [creds, setCreds] = useState({
     username: "",
@@ -70,6 +72,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
   performLogin,
+  showLoginHeader,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

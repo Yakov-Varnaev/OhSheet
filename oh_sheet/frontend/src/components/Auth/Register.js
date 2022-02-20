@@ -1,8 +1,16 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router";
 import "./Auth.css";
+import { connect } from "react-redux";
+import { showRegisterHeader } from "../../redux/Header/headerActions";
 import { Button, Container, Form } from "react-bootstrap";
 
-const Register = () => {
+const Register = (props) => {
+  const navigate = useNavigate();
+  if (props.isAuthenticated) {
+    navigate("/");
+  }
+  props.showRegisterHeader();
   const [userInfo, setUserInfo] = useState({
     username: "",
     password: "",
@@ -103,4 +111,12 @@ const Register = () => {
   );
 };
 
-export default Register;
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+const mapDispatchToProps = {
+  showRegisterHeader,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Register);
