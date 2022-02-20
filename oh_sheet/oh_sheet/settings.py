@@ -35,6 +35,7 @@ INSTALLED_APPS = [
 
     'characters.apps.CharactersConfig',
     'users.apps.UsersConfig',
+    'adventures.apps.AdventuresConfig',
 ]
 
 MIDDLEWARE = [
