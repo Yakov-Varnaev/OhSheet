@@ -23,8 +23,8 @@ const persistRootReducer = persistReducer(persistConfig, rootReducer);
 const store = createStore(
   persistRootReducer,
   compose(
-    applyMiddleware(thunk),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    applyMiddleware(thunk)
+    // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   )
 );
 let persistor = persistStore(store);

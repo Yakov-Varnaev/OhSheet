@@ -26,7 +26,7 @@ const Profile = (props) => {
                 <div>Saint-Petersburg</div>
                 <div>English</div>
                 <div>Dungeons&Dragons</div>
-                <div className="canitscroll">
+                <div>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                   Phasellus sit amet vestibulum dolor. Maecenas suscipit elit
                   feugiat blandit maximus. Etiam vitae libero nec nulla gravida
@@ -36,7 +36,20 @@ const Profile = (props) => {
             </div>
           </div>
         </Col>
-        <Col>stats</Col>
+        <Col className="text-center profile-stats-container">
+          <div className="profile-stat">
+            <div className="profile-state-value">17</div>
+            <div className="profile-state-name">Characters</div>
+          </div>
+          <div className="profile-stat">
+            <div className="profile-state-value">4</div>
+            <div className="profile-state-name">Parties</div>
+          </div>
+          <div className="profile-stat">
+            <div className="profile-state-value">7</div>
+            <div className="profile-state-name">Adventures</div>
+          </div>
+        </Col>
       </Row>
     </Container>
   );

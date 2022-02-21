@@ -25,3 +25,9 @@ main {
 .text-light {
   color: #D7CFCD;
 }
+
+@media  screen and (max-width: 720px) {
+  body {
+    padding-bottom: 120px;
+  }
+}

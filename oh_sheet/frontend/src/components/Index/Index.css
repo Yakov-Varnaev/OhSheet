@@ -8,12 +8,12 @@
 
 .index-text {
     font-family: Bokor;
-    font-size: 250px;
+    font-size: 20vw;
     margin: 0;
     padding: 0;
 }
 
 .index-container span {
-    font-size: 64px;
+    font-size: 8vw;
     font-family: Bokor;
 }
