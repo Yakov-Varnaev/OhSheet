@@ -5,7 +5,6 @@ import "./Header.css";
 import { headerTypes } from "../../../Enums/headerEnums";
 
 const Header = (props) => {
-  console.log("hi from header");
   const NAV_ANON_JSX = (
     <Nav className="nav-links justify-content-end">
       <Nav.Link href="/login">Login</Nav.Link>
@@ -37,7 +36,7 @@ const Header = (props) => {
   header = props.isAuthenticated ? NAV_USER_JSX : header;
 
   return (
-    <Navbar bg="dark" variant="dark" sticky="top">
+    <Navbar bg="primary" variant="dark" sticky="top">
       <Container className="nav-container">
         <Navbar.Brand href="/" className="brand-text text-light">
           OhSheet

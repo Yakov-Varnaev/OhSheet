@@ -1,0 +1,30 @@
+.profile-container {
+    max-width: 900px;
+    background-color: antiquewhite;
+}
+
+.profile-col {
+    padding: 5px;
+}
+
+.profile-info {
+    height: 100%;
+}
+
+.info-text {
+    font-family: Roboto;
+    font-weight: 100;
+}
+
+.profile-info-about {
+    display: flex;
+}
+
+.profile-info-values {
+    margin-left: 2rem;
+}
+
+.canitscroll {
+    width: 100%;
+    overflow: scroll;
+}
