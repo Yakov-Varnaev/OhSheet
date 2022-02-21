@@ -1,4 +1,4 @@
-import { LOGIN_SUCCESS, LOGIN_FAIL } from "./types";
+import { LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT } from "./types";
 
 export function performLogin({ username, password }) {
   return async (dispatch) => {
@@ -20,5 +20,11 @@ export function performLogin({ username, password }) {
       localStorage.setItem("refresh_token", json.refresh);
       dispatch({ type: LOGIN_SUCCESS, payload: true });
     }
+  };
+}
+
+export function performLogout() {
+  return async (dispatch) => {
+    dispatch({ type: LOGOUT, payload: false });
   };
 }

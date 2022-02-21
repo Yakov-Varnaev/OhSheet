@@ -24,6 +24,7 @@ const Header = (props) => {
   const NAV_USER_JSX = (
     <Nav className="nav-links justify-content-end">
       <Nav.Link href="/profile">Profile</Nav.Link>
+      <Nav.Link href="/logout">Logout</Nav.Link>
     </Nav>
   );
   let header = NAV_ANON_JSX;
@@ -31,6 +32,8 @@ const Header = (props) => {
     header = NAV_LOGIN_JSX;
   } else if (props.headerType === headerTypes.REGISTER) {
     header = NAV_REGISTER_JSX;
+  } else if (props.headerType === headerTypes.ANON) {
+    header = NAV_ANON_JSX;
   }
 
   header = props.isAuthenticated ? NAV_USER_JSX : header;
