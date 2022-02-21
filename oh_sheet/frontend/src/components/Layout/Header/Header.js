@@ -33,6 +33,9 @@ const Header = (props) => {
   } else if (props.headerType === headerTypes.REGISTER) {
     header = NAV_REGISTER_JSX;
   }
+
+  header = props.isAuthenticated ? NAV_USER_JSX : header;
+
   return (
     <Navbar bg="dark" variant="dark" sticky="top">
       <Container className="nav-container">
