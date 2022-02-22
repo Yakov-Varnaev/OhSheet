@@ -1,31 +1,44 @@
+import "./index.css";
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter } from "react-router-dom";
-import "./index.css";
-import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import Layout from "./components/Layout/Layout";
 import thunk from "redux-thunk";
+import { BrowserRouter } from "react-router-dom";
 import { applyMiddleware, compose, createStore } from "redux";
-import { rootReducer } from "./redux/rootReducer";
 import { Provider } from "react-redux";
+import { persistStore, persistReducer } from "redux-persist";
+import { PersistGate } from "redux-persist/integration/react";
+import storage from "redux-persist/lib/storage";
+import { rootReducer } from "./redux/rootReducer";
+import App from "./App";
+import Layout from "./components/Layout/Layout";
+
+const persistConfig = {
+  key: "root",
+  storage,
+};
+
+const persistRootReducer = persistReducer(persistConfig, rootReducer);
 
 const store = createStore(
-  rootReducer,
+  persistRootReducer,
   compose(
-    applyMiddleware(thunk),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    applyMiddleware(thunk)
+    // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   )
 );
+let persistor = persistStore(store);
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
-        <Layout>
-          <App />
-        </Layout>
-      </BrowserRouter>
+      <PersistGate loading={null} persistor={persistor}>
+        <BrowserRouter>
+          <Layout>
+            <App />
+          </Layout>
+        </BrowserRouter>
+      </PersistGate>
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")
