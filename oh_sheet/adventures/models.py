@@ -14,9 +14,9 @@ class Adventure(models.Model):
     description = models.TextField('description', max_length=500)
     writer = models.ForeignKey(
         User,
-        on_delete=models.SET_NULL,
+        on_delete=models.CASCADE,
         related_name='adventures',
-        verbose_name='writer',
+        verbose_name='adventure writer',
         null = True
     )
 
