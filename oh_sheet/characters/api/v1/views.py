@@ -22,3 +22,7 @@ class PlayableCharacterViewSet(viewsets.ModelViewSet):
         .select_related('race', 'clazz', 'owner')
     )
     serializer_class = PlayableCharacterSerialzer
+
+
+    def perform_create(self, serializer):
+        return serializer.save(owner=self.request.user)
