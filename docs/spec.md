@@ -46,3 +46,23 @@ Authentication fields:
 ## 2.2 Characters
 
 Characters block will be responsible for D&D characters CRUD. More detail in characters.md.
+
+## 2.3 Adventures
+
+Adventure part will be a story writing tool. This will allow to easily fill adventures with locations, NPC, beasts and stories. 
+More details in adventures.md.
+
+# 2.4 Parties
+
+Parties will help to masters and players to handle games arrangment. But it will be a future feature and wont be implemented at the beginning.
+
+# 2.5 Master tools
+
+Well it's quite handy to have some tools for master:
+
+- initiative controller
+- round tracker
+- effects tracker
+- sth else?
+
+this will be implemented in frontend
