@@ -31,7 +31,7 @@ System will have three types of users: admin, staff, and ordinary. All of this t
 Registration fields:
 
 - username
-- emal
+- email
 - password
 - first name
 - last name
