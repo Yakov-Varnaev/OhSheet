@@ -66,3 +66,12 @@ Well it's quite handy to have some tools for master:
 - sth else?
 
 this will be implemented in frontend
+
+# 3. Stack
+Language: Python
+Framework: Django + DRF
+DB: Postgres
+
+# 4. Appearence
+As minimalistic as possible.
+[link to figma](https://www.figma.com/file/RcpuhPaQ7O56NcfOlbklME/OhSheet)
