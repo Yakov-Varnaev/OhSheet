@@ -18,6 +18,7 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'djoser',
+    'drf_yasg',
 
     'users',
     'adventures',
