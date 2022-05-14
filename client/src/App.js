@@ -1,7 +1,13 @@
 import React from "react";
+import { BrowserRouter, Route } from "react-router-dom";
+import AppRouter from "./componets/AppRouter";
 
 function App() {
-  return <div className="App">is it even working?</div>;
+  return (
+    <BrowserRouter>
+      <AppRouter />
+    </BrowserRouter>
+  );
 }
 
 export default App;
