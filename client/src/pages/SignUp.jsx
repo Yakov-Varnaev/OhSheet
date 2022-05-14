@@ -3,8 +3,6 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -12,6 +10,11 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as Yup from "yup";
+import { performRegister } from "../actions/authActions";
+import { useDispatch } from "react-redux";
 
 function Copyright(props) {
   return (
@@ -23,7 +26,7 @@ function Copyright(props) {
     >
       {"Copyright © "}
       <Link color="inherit" href="https://mui.com/">
-        Your Website
+        OhSheet
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -34,13 +37,30 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignUp() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+  const dispatch = useDispatch();
+  const validationSchema = Yup.object().shape({
+    firstName: Yup.string().required("Required"),
+    lastName: Yup.string().required("Required"),
+    email: Yup.string().email().required("Email is required"),
+    password: Yup.string()
+      .min(8, "Password must be at least 8 characters long")
+      .required(),
+    passwordRepeat: Yup.string().oneOf(
+      [Yup.ref("password"), null],
+      "Passwords must match"
+    ),
+  });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(validationSchema),
+    mode: "onBlur",
+  });
+
+  const onSubmit = (data) => {
+    dispatch(performRegister(data));
   };
 
   return (
@@ -64,14 +84,17 @@ export default function SignUp() {
           <Box
             component="form"
             noValidate
-            onSubmit={handleSubmit}
+            onSubmit={handleSubmit(onSubmit)}
             sx={{ mt: 3 }}
           >
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
+                  {...register("firstName")}
                   autoComplete="given-name"
                   name="firstName"
+                  error={errors.firstName ? true : false}
+                  helperText={errors.firstName?.message}
                   required
                   fullWidth
                   id="firstName"
@@ -83,6 +106,9 @@ export default function SignUp() {
                 <TextField
                   required
                   fullWidth
+                  {...register("lastName")}
+                  error={errors.lastName ? true : false}
+                  helperText={errors.lastName?.message}
                   id="lastName"
                   label="Last Name"
                   name="lastName"
@@ -93,6 +119,9 @@ export default function SignUp() {
                 <TextField
                   required
                   fullWidth
+                  {...register("email")}
+                  error={errors.email ? true : false}
+                  helperText={errors.email?.message}
                   id="email"
                   label="Email Address"
                   name="email"
@@ -103,6 +132,9 @@ export default function SignUp() {
                 <TextField
                   required
                   fullWidth
+                  {...register("password")}
+                  error={errors.password ? true : false}
+                  helperText={errors.password?.message}
                   name="password"
                   label="Password"
                   type="password"
@@ -111,11 +143,17 @@ export default function SignUp() {
                 />
               </Grid>
               <Grid item xs={12}>
-                <FormControlLabel
-                  control={
-                    <Checkbox value="allowExtraEmails" color="primary" />
-                  }
-                  label="I want to receive inspiration, marketing promotions and updates via email."
+                <TextField
+                  required
+                  fullWidth
+                  {...register("passwordRepeat")}
+                  error={errors.passwordRepeat ? true : false}
+                  helperText={errors.passwordRepeat?.message}
+                  name="passwordRepeat"
+                  label="Repeat Password"
+                  type="password"
+                  id="passwordRepeat"
+                  autoComplete="new-password"
                 />
               </Grid>
             </Grid>
