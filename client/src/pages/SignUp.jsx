@@ -13,7 +13,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
-import { thunkPerformRegister } from "../actions/authActions";
+import { registerAction } from "../actions/authActions";
 import { useDispatch, useSelector } from "react-redux";
 
 const theme = createTheme();
@@ -54,7 +54,7 @@ export default function SignUp() {
   });
 
   const onSubmit = (data) => {
-    dispatch(thunkPerformRegister(data));
+    dispatch(registerAction(data));
     reset();
   };
 

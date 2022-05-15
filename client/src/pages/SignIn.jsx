@@ -10,17 +10,33 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-
+import * as Yup from "yup";
+import { useDispatch } from "react-redux";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import { signinAction } from "../actions/authActions";
 const theme = createTheme();
 
+const validationSchema = Yup.object().shape({
+  email: Yup.string().required(),
+  password: Yup.string().required(),
+});
+
 export default function SignIn() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+  const dispatch = useDispatch();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(validationSchema),
+    mode: "onBlur",
+  });
+
+  const onSubmit = (data) => {
+    dispatch(signinAction(data));
+    reset();
   };
 
   return (
@@ -43,11 +59,14 @@ export default function SignIn() {
           </Typography>
           <Box
             component="form"
-            onSubmit={handleSubmit}
+            onSubmit={handleSubmit(onSubmit)}
             noValidate
             sx={{ mt: 1 }}
           >
             <TextField
+              {...register("email")}
+              error={errors.email ? true : false}
+              helperText={errors.email?.message}
               margin="normal"
               required
               fullWidth
@@ -58,6 +77,9 @@ export default function SignIn() {
               autoFocus
             />
             <TextField
+              {...register("password")}
+              error={errors.password ? true : false}
+              helperText={errors.password?.message}
               margin="normal"
               required
               fullWidth
