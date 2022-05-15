@@ -15,6 +15,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { registerAction } from "../actions/authActions";
 import { useDispatch, useSelector } from "react-redux";
+import { Link as RouterLink } from "react-router-dom";
 
 const theme = createTheme();
 
@@ -161,7 +162,7 @@ export default function SignUp() {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="/signin" variant="body2">
+                <Link to="/signin" variant="body2" component={RouterLink}>
                   Already have an account? Sign in
                 </Link>
               </Grid>
