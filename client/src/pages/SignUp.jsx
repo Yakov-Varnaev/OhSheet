@@ -13,31 +13,15 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
-import { performRegister } from "../actions/authActions";
-import { useDispatch } from "react-redux";
-
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        OhSheet
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+import { thunkPerformRegister } from "../actions/authActions";
+import { useDispatch, useSelector } from "react-redux";
 
 const theme = createTheme();
 
 export default function SignUp() {
   const dispatch = useDispatch();
+  const apiErrors = useSelector((state) => state.auth.errors);
+
   const validationSchema = Yup.object().shape({
     firstName: Yup.string().required("Required"),
     lastName: Yup.string().required("Required"),
@@ -53,14 +37,25 @@ export default function SignUp() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(validationSchema),
     mode: "onBlur",
   });
+  const combinedErrors = apiErrors ? apiErrors : {};
+
+  Object.entries(errors).forEach(([field, data]) => {
+    if (field in combinedErrors) {
+      combinedErrors[field] = [...combinedErrors[field], data.message];
+    } else {
+      combinedErrors[field] = [data.message];
+    }
+  });
 
   const onSubmit = (data) => {
-    dispatch(performRegister(data));
+    dispatch(thunkPerformRegister(data));
+    reset();
   };
 
   return (
@@ -93,13 +88,12 @@ export default function SignUp() {
                   {...register("firstName")}
                   autoComplete="given-name"
                   name="firstName"
-                  error={errors.firstName ? true : false}
-                  helperText={errors.firstName?.message}
+                  error={combinedErrors.firstName?.length ? true : false}
+                  helperText={combinedErrors.firstName}
                   required
                   fullWidth
                   id="firstName"
                   label="First Name"
-                  autoFocus
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -107,8 +101,8 @@ export default function SignUp() {
                   required
                   fullWidth
                   {...register("lastName")}
-                  error={errors.lastName ? true : false}
-                  helperText={errors.lastName?.message}
+                  error={combinedErrors.lastName?.length ? true : false}
+                  helperText={combinedErrors.lastName}
                   id="lastName"
                   label="Last Name"
                   name="lastName"
@@ -120,8 +114,8 @@ export default function SignUp() {
                   required
                   fullWidth
                   {...register("email")}
-                  error={errors.email ? true : false}
-                  helperText={errors.email?.message}
+                  error={combinedErrors.email?.length ? true : false}
+                  helperText={combinedErrors.email}
                   id="email"
                   label="Email Address"
                   name="email"
@@ -133,8 +127,8 @@ export default function SignUp() {
                   required
                   fullWidth
                   {...register("password")}
-                  error={errors.password ? true : false}
-                  helperText={errors.password?.message}
+                  error={combinedErrors.password?.length ? true : false}
+                  helperText={combinedErrors.password}
                   name="password"
                   label="Password"
                   type="password"
@@ -167,14 +161,13 @@ export default function SignUp() {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/signin" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 5 }} />
       </Container>
     </ThemeProvider>
   );

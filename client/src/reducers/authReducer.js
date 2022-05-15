@@ -1,17 +1,22 @@
-const PERFORM_REGISTER = "PERFORM_REGISTER";
+import { createSlice } from "@reduxjs/toolkit";
+import { thunkPerformRegister } from "../actions/authActions";
 
-const defaultState = {};
+const initialState = {};
 
-export const authReducer = (state = defaultState, action) => {
-  switch (action.type) {
-    case PERFORM_REGISTER:
+const authSlice = createSlice({
+  name: "auth",
+  initialState,
+  reducers: {
+    performRegister(state, action) {
+      state = { ...state, ...action.payload };
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(thunkPerformRegister.fulfilled, (state, action) => {
       return { ...state, ...action.payload };
-    default:
-      return state;
-  }
-};
-
-export const registerAction = (payload) => ({
-  type: PERFORM_REGISTER,
-  payload,
+    });
+  },
 });
+
+export const { performRegister } = authSlice.actions;
+export default authSlice;
