@@ -11,11 +11,11 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import * as Yup from "yup";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { signinAction } from "../actions/authActions";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, Navigate } from "react-router-dom";
 
 const theme = createTheme();
 
@@ -26,6 +26,7 @@ const validationSchema = Yup.object().shape({
 
 export default function SignIn() {
   const dispatch = useDispatch();
+  const loggedIn = useSelector((state) => state.auth.loggedIn);
   const {
     register,
     handleSubmit,
@@ -40,6 +41,11 @@ export default function SignIn() {
     dispatch(signinAction(data));
     reset();
   };
+
+  if (loggedIn) {
+    console.log("redirect here!");
+    return <Navigate to="/profile/1/" />;
+  }
 
   return (
     <ThemeProvider theme={theme}>

@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
+import { Link as RouterLink } from "react-router-dom";
 
 export default function Navbar() {
   return (
@@ -24,7 +25,9 @@ export default function Navbar() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             OhSheet
           </Typography>
-          <Button color="inherit">Login</Button>
+          <Button color="inherit" LinkComponent={RouterLink} to="/signin">
+            Login
+          </Button>
         </Toolbar>
       </AppBar>
     </Box>

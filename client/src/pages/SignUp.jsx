@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -21,11 +22,9 @@ const theme = createTheme();
 
 export default function SignUp() {
   const dispatch = useDispatch();
-  const apiErrors = useSelector((state) => state.auth.errors);
+  const apiErrors = useSelector((state) => state.auth.err);
 
   const validationSchema = Yup.object().shape({
-    firstName: Yup.string().required("Required"),
-    lastName: Yup.string().required("Required"),
     email: Yup.string().email().required("Email is required"),
     password: Yup.string()
       .min(8, "Password must be at least 8 characters long")
@@ -39,24 +38,21 @@ export default function SignUp() {
     register,
     handleSubmit,
     reset,
+    setError,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(validationSchema),
     mode: "onBlur",
   });
-  const combinedErrors = apiErrors ? apiErrors : {};
 
-  Object.entries(errors).forEach(([field, data]) => {
-    if (field in combinedErrors) {
-      combinedErrors[field] = [...combinedErrors[field], data.message];
-    } else {
-      combinedErrors[field] = [data.message];
+  useEffect(() => {
+    for (const name in apiErrors) {
+      setError(name, { type: "serverSide", message: apiErrors[name][0] });
     }
-  });
+  }, [apiErrors]);
 
   const onSubmit = (data) => {
     dispatch(registerAction(data));
-    reset();
   };
 
   return (
@@ -84,39 +80,13 @@ export default function SignUp() {
             sx={{ mt: 3 }}
           >
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  {...register("firstName")}
-                  autoComplete="given-name"
-                  name="firstName"
-                  error={combinedErrors.firstName?.length ? true : false}
-                  helperText={combinedErrors.firstName}
-                  required
-                  fullWidth
-                  id="firstName"
-                  label="First Name"
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  {...register("lastName")}
-                  error={combinedErrors.lastName?.length ? true : false}
-                  helperText={combinedErrors.lastName}
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="family-name"
-                />
-              </Grid>
               <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
                   {...register("email")}
-                  error={combinedErrors.email?.length ? true : false}
-                  helperText={combinedErrors.email}
+                  error={!!errors.email}
+                  helperText={errors?.email?.message}
                   id="email"
                   label="Email Address"
                   name="email"
@@ -128,8 +98,8 @@ export default function SignUp() {
                   required
                   fullWidth
                   {...register("password")}
-                  error={combinedErrors.password?.length ? true : false}
-                  helperText={combinedErrors.password}
+                  error={!!errors.password}
+                  helperText={errors?.password?.message}
                   name="password"
                   label="Password"
                   type="password"
@@ -142,8 +112,8 @@ export default function SignUp() {
                   required
                   fullWidth
                   {...register("passwordRepeat")}
-                  error={errors.passwordRepeat ? true : false}
-                  helperText={errors.passwordRepeat?.message}
+                  error={!!errors.passwordRepeat}
+                  helperText={errors?.passwordRepeat?.message}
                   name="passwordRepeat"
                   label="Repeat Password"
                   type="password"
