@@ -4,6 +4,7 @@ import App from "./App";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import { rootReducer } from "./reducers/root";
+import { Authenticator } from "./componets/Authenticator";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -12,9 +13,11 @@ const store = configureStore({
 });
 
 root.render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <Authenticator>
+        <App />
+      </Authenticator>
     </Provider>
-  </React.StrictMode>
+  // </React.StrictMode>
 );

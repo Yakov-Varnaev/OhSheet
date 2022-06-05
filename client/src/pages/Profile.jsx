@@ -1,15 +1,24 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import { ThemeProvider, createTheme, Avatar, Typography } from "@mui/material";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
+import { useSelector } from "react-redux";
 
 const theme = createTheme();
 
 export default function Profile(props) {
   const { id } = useParams();
+  let user = useSelector((state) => state.auth.user);
+
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+
+  if (!isAuthenticated) {
+    return <Navigate to="/signin" />;
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <Container>
@@ -31,10 +40,10 @@ export default function Profile(props) {
               align="center"
               fontWeight={500}
             >
-              Yakov Varnaev
+              {user?.username}
             </Typography>
             <Typography component="span" color="#888">
-              yakov@yakov.com
+              {user?.email}
             </Typography>
           </Box>
         </CssBaseline>

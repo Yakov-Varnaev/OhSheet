@@ -13,7 +13,7 @@ export const registerAction = createAsyncThunk(
     });
     const json = await response.json();
     if (!response.ok) {
-      return rejectWithValue(json);
+      return rejectWithValue({json});
     }
     return { auth: await json };
   }
@@ -31,8 +31,63 @@ export const signinAction = createAsyncThunk(
     });
     const json = await response.json();
     if (!response.ok) {
-      rejectWithValue(json);
+      return rejectWithValue({err: json});
     }
-    return { tokens: json };
+    return json;
   }
 );
+
+export const loadUser = createAsyncThunk(
+  "auth/loadUser",
+  async (data, {rejectWithValue}) => {
+    const token = localStorage.getItem("access")
+    if (!token) {
+      return rejectWithValue({err: "no_token"});
+    } else {
+      const config = {
+        method: "get",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `JWT ${token}`,
+        }
+      }
+      try {
+        const response = await fetch("http://localhost:8000/api/auth/users/me/", config);
+        const json = await response.json()
+        return json
+      } catch (err) {
+        return rejectWithValue({})
+      }
+    }
+  }
+);
+
+export const checkAuthenticated = createAsyncThunk(
+  "auth/isAuthenticated",
+  async (data, {rejectWithValue}) => {
+    const token = localStorage.getItem("access")
+    if (!token) {
+      return rejectWithValue({detail: ["no token"]});
+    }
+
+    const config = {
+      method: "post",
+      headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+      },
+      body: JSON.stringify({token})
+    };
+    try {
+      const response = await fetch("http://localhost:8000/api/auth/jwt/verify/", config)
+      const json = await response.json();
+      if (!response.ok || json.code === "token_not_valid") {
+        return rejectWithValue({detail: ["no_token"]});
+      }
+      return {isAuthenticated: true}
+    } catch (err) {
+      return rejectWithValue({detail: [err]});
+    }
+  }
+);
+

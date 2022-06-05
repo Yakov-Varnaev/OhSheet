@@ -1,4 +1,5 @@
-import * as React from "react";
+import React from "react";
+import { useEffect } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -14,27 +15,40 @@ import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { signinAction } from "../actions/authActions";
+import { loadUser, signinAction } from "../actions/authActions";
 import { Link as RouterLink, Navigate } from "react-router-dom";
 
 const theme = createTheme();
 
 const validationSchema = Yup.object().shape({
-  email: Yup.string().required(),
+  email: Yup.string().email().required(),
   password: Yup.string().required(),
 });
 
 export default function SignIn() {
+  console.log("signin page");
   const dispatch = useDispatch();
-  const loggedIn = useSelector((state) => state.auth.loggedIn);
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  console.log("signin page is auth", isAuthenticated);
+  const user = useSelector((state) => state.auth.user);
+  console.log("signin page user", user);
+  const apiErrors = useSelector((state) => state.auth.err);
+  console.log("signin page error", apiErrors);
   const {
     register,
     handleSubmit,
     reset,
+    setError,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(validationSchema),
     mode: "onBlur",
+  });
+  console.log("sign in err", errors);
+  useEffect(() => {
+    for (const name in apiErrors) {
+      setError(name, { type: "serverSide", message: apiErrors[name][0] });
+    }
   });
 
   const onSubmit = (data) => {
@@ -42,9 +56,12 @@ export default function SignIn() {
     reset();
   };
 
-  if (loggedIn) {
-    console.log("redirect here!");
-    return <Navigate to="/profile/1/" />;
+  if (isAuthenticated && user) {
+    if (!user) {
+      dispatch(loadUser());
+    } else {
+      return <Navigate to={`/profile/${user.id}`} />;
+    }
   }
 
   return (
@@ -96,6 +113,7 @@ export default function SignIn() {
               id="password"
               autoComplete="current-password"
             />
+            {apiErrors && <Typography>{apiErrors}</Typography>}
             <Button
               type="submit"
               fullWidth

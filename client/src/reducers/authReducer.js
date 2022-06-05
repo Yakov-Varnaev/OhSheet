@@ -1,7 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { registerAction, signinAction } from "../actions/authActions";
+import { checkAuthenticated, loadUser, registerAction, signinAction } from "../actions/authActions";
 
-const initialState = {};
+const initialState = {
+  isAuthenticated: false,
+  user: null,
+  err: null
+};
 
 const authSlice = createSlice({
   name: "auth",
@@ -19,14 +23,31 @@ const authSlice = createSlice({
       return { ...state, err: action.payload };
     });
     builder.addCase(signinAction.fulfilled, (state, action) => {
-      return { ...state, ...action.payload, loggedIn: true };
+      const { access, refresh } = action.payload;
+      localStorage.setItem("access", access)
+      localStorage.setItem("refresh", refresh)
+      return { ...state, isAuthenticated: true };
     });
     builder.addCase(signinAction.rejected, (state, action) => {
-      return { ...state, err: action.payload };
+      localStorage.removeItem("access");
+      localStorage.removeItem("refresh");
+      return { ...state, err: action.payload, isAuthenticated: false };
+    });
+    builder.addCase(loadUser.fulfilled, (state, action) => {
+      return { ...state, user: action.payload }
+    });
+    builder.addCase(loadUser.rejected, (state, action) => {
+      return { ...state, user: null }
+    })
+    builder.addCase(checkAuthenticated.fulfilled, (state, action) => {
+      return { ...state, isAuthenticated: true}
+    });
+    builder.addCase(checkAuthenticated.rejected, (state, action) => {
+      localStorage.removeItem("access");
+      localStorage.removeItem("refresh");
+      return { ...state, isAuthenticated: false}
     });
   },
 });
 
-export const { performRegister } = authSlice.actions;
 export default authSlice;
-

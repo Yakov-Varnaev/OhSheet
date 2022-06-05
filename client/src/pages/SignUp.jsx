@@ -16,11 +16,12 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { registerAction } from "../actions/authActions";
 import { useDispatch, useSelector } from "react-redux";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, Navigate } from "react-router-dom";
 
 const theme = createTheme();
 
 export default function SignUp() {
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const dispatch = useDispatch();
   const apiErrors = useSelector((state) => state.auth.err);
 
@@ -37,7 +38,6 @@ export default function SignUp() {
   const {
     register,
     handleSubmit,
-    reset,
     setError,
     formState: { errors },
   } = useForm({
@@ -49,7 +49,11 @@ export default function SignUp() {
     for (const name in apiErrors) {
       setError(name, { type: "serverSide", message: apiErrors[name][0] });
     }
-  }, [apiErrors]);
+  }, [apiErrors, setError]);
+
+  if (isAuthenticated) {
+    return <Navigate to="/profile/me" />;
+  }
 
   const onSubmit = (data) => {
     dispatch(registerAction(data));
