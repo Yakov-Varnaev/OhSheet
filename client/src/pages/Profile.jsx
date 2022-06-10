@@ -40,7 +40,7 @@ export default function Profile(props) {
               align="center"
               fontWeight={500}
             >
-              {user?.username}
+              {user?.first_name} {user?.last_name}
             </Typography>
             <Typography component="span" color="#888">
               {user?.email}
