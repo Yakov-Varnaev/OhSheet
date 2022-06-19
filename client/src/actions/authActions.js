@@ -4,8 +4,9 @@ export const registerAction = createAsyncThunk(
   "auth/register",
   async (data, { rejectWithValue }) => {
     data.username = data.email;
+    console.log('register data', data)
     const response = await fetch("http://localhost:8000/api/auth/users/", {
-      method: "post",
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
@@ -18,6 +19,32 @@ export const registerAction = createAsyncThunk(
     return { auth: await json };
   }
 );
+
+export const updateUserAction = createAsyncThunk(
+  "auth/update",
+  async (data, {rejectWithValue}) => {
+    const token = localStorage.getItem("access")
+    if (!token) {
+      return rejectWithValue({err: "no_token"});
+    } else {
+      const config = {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `JWT ${token}`,
+        },
+        body: JSON.stringify(data)
+      }
+      try {
+        const response = await fetch("http://localhost:8000/api/auth/users/me/", config);
+        const json = await response.json()
+        return json
+      } catch (err) {
+        return rejectWithValue({})
+      }
+    }
+  }
+)
 
 export const signinAction = createAsyncThunk(
   "auth/signin",

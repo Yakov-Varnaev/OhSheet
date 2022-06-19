@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { checkAuthenticated, loadUser, registerAction, signinAction } from "../actions/authActions";
+import { checkAuthenticated, loadUser, registerAction, signinAction, updateUserAction } from "../actions/authActions";
 
 const initialState = {
   isAuthenticated: false,
@@ -47,6 +47,12 @@ const authSlice = createSlice({
       localStorage.removeItem("refresh");
       return { ...state, isAuthenticated: false}
     });
+    builder.addCase(updateUserAction.fulfilled, (state, action) => {
+      return { ...state, user: action.payload}
+    })
+    builder.addCase(updateUserAction.rejected, (state, action) => {
+      return {...state, updateFailed: true, updateError: action.payload }
+    })
   },
 });
 

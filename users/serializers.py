@@ -9,11 +9,6 @@ class DetailUserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('id', 'email', 'first_name', 'last_name')
 
+
 class UserCreateSerializer(BaseUserCreateSerializer):
-
-    def create(self, validated_data):
-        validated_data.update({'username': validated_data['email']})
-        return super().create(validated_data)
-
-    class Meta(BaseUserCreateSerializer.Meta):
-        fields = ('email', 'password')
+    pass
